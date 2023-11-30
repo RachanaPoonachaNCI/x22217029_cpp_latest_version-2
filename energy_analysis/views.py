@@ -7,6 +7,21 @@ from django.contrib.auth.decorators import login_required
 from authentication import models as authModels
 from .models import airConditionerUnits, electricityUnits, gas as GasUnits, dailyHistory
 import math
+import boto3
+from botocore.exceptions import NoCredentialsError
+from energy_management.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_S3_REGION_NAME
+
+# import boto3
+# iam_user = boto3.client('iam_user')
+# def attach_policy(username, policy_arn):
+#     try:
+#         response = iam.attach_user_policy(UserName=username, PolicyArn=policy_arn)
+#         print(f"Policy {policy_arn} attached to user {username} successfully")
+#     except Exception as e:
+#         print(f"Error attaching policy {policy_arn} to user {username}: {str(e)}")
+# attach_policy('AmazonS3FullAccess', 'arn:aws:iam::aws:policy/AmazonS3FullAccess')
+
+# attach_policy.py
 
 
 # User Login view 
@@ -205,7 +220,28 @@ def profile(request):
                 dailyHistory.objects.filter(user__id=request.user).order_by("date")
             )
         )
-        
+        user = authModels.consumer.objects.get(id=request.user)
+        filename = user.pp  # Change this to the desired file name
+        bucket_name = 'bucket-name'
+      #  bucker_name = AWS_STORAGE_BUCKET_NAME
+        url = ""
+        try:
+                #Generate a presigned URL for the uploaded file
+                s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY, region_name=AWS_S3_REGION_NAME)
+                
+           #     file_name = user.get_filename()
+                
+                url = s3.generate_presigned_url(
+                'get_object',
+                Params={'Bucket': bucket_name, 'Key': filename},
+                ExpiresIn=3600  # Set the expiration time for the URL in seconds (e.g., 1 hour)
+                )
+                    
+#print(f"Access URL for the uploaded file: {url}")
+        except Exception as e:
+                print(f"Error uploading file to S3: {e}")        
+       # except:
+              #  print("Credentials not available")
         username = user.name if user.name != None else "change username"
         return render(
             request,
@@ -215,7 +251,7 @@ def profile(request):
                 "history": history,
                 "username": username,
                 "email": request.user,
-                "profile_pic": profile_pic_url,
+                "profile_pic": url
             },
             status=201,
         )
@@ -228,9 +264,22 @@ def profile(request):
             user.name = username
             user.save()
         elif reqType == "profile_pic":
-            pp = request.FILES.get("profile_pic")
+            
+            #uploading profile pic to S3
+            file = request.FILES.get("profile_pic")
+           # file = request.FILES['upload']
+            filename = 'your_desired_file_name.extension'  # Change this to the desired file name
+            bucket_name = 'bucket_name'
+            s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY, region_name=AWS_S3_REGION_NAME)
+            try:
+# Upload the file to the specified bucket
+                s3.upload_fileobj(file, bucket_name, filename)
+            #except Exception as e:
+            #    print(e)
+            except Exception as e:
+                print(f"Error uploading file to S3: {e}")
             user = authModels.consumer.objects.get(id=request.user)
-            user.pp = pp
+            user.pp = filename
             user.save()
         return HttpResponse("Success")
 

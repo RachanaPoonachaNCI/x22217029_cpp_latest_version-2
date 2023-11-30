@@ -130,7 +130,7 @@
 <body>
     <div class="profile-container">
         <div class="profile-picture" id="profile-picture">
-            <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg" alt="Profile Picture">
+            <img src='{{ profile_pic }}' alt="Profile Picture">
             <input type="file" id="profile-picture-input" accept="image/*" style="display: none;">
         </div>
         <label for="profile-picture-input" class="edit-icon" class="profile-edit">&#9998;</label>
@@ -143,10 +143,6 @@
             <div class="editable" id="email">
                 <span class="label">Email:</span>
                 <span class="value">{{ email }}</span>
-            </div>
-            <div class="editable" id="profile_pic">
-                <span class="label">Profile Picture:</span>
-                <img src="{{ profile_pic }}" alt="Profile Picture">
             </div>
         </div>
     </div>

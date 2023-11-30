@@ -93,13 +93,9 @@ WSGI_APPLICATION = "energy_management.wsgi.application"
 # or implementing the sample code, visit the AWS docs:
 # https://aws.amazon.com/developer/language/python/
 
-#Postgres connections
+#Postgres connection details being retrieved through secret file
 from aws_cloud_services.db_secret import get_secret
-
 database_secret =  get_secret()
-
-
-
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -110,27 +106,20 @@ DATABASES = {
             'PORT': '5432',
         }
     }
-    
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.s3.S3Storage",
-        "OPTIONS": {
-            "AWS_STORAGE_BUCKET_NAME": 'x22217029-energy-tracker',
-            "AWS_ACCESS_KEY_ID": 'AKIASDPQLUX544LOMJV7',
-            "AWS_SECRET_ACCESS_KEY": '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',
-            "AWS_S3_REGION_NAME": 'eu-north-1',
-            "AWS_S3_CUSTOM_DOMAIN": 'x22217029-energy-tracker.s3.amazonaws.com',
-        },
-    },
-}
-# settings.py
 
-#import dj_database_url
-####
-#DATABASES = {"default": dj_database_url.config(default="postgres://default:O1Lkj8JzYBHP@ep-lingering-bird-03074576-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb")}
+#s3 bucket credentials retrieved by importing config file which has environment variables defined
+from aws_cloud_services.s3_credentials import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME
+AWS_ACCESS_KEY_ID = AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = AWS_SECRET_ACCESS_KEY
+AWS_S3_REGION_NAME = AWS_S3_REGION_NAME
+AWS_STORAGE_BUCKET_NAME = AWS_STORAGE_BUCKET_NAME
+AWS_S3_SIGNATURE_NAME = 's3v4',
+AWS_S3_REGION_NAME = 'eu-north-1'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_VERITY = True
 
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {

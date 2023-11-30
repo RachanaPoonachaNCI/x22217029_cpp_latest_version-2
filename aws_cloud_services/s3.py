@@ -13,3 +13,7 @@ response = s3.list_buckets()
 # Get a list of all bucket names from the response
 buckets = [bucket['Name'] for bucket in response['Buckets']]
 print("Bucket List: %s" % buckets)
+
+s3 = boto3.client('s3')
+s3.upload_file('/home/ec2-user/environment/cpp/source_code/energy-management-main/requirements.txt', 'x22217029-energy-tracker', 'x22217029-energy-tracker/profile_pictures/')
+print("Upload Successful")
