@@ -9,7 +9,7 @@ from .models import airConditionerUnits, electricityUnits, gas as GasUnits, dail
 import math
 
 
-# Login view
+# User Login view 
 @login_required(login_url="/auth/login/")
 def dashboard(request):
     if request.method == "GET":
