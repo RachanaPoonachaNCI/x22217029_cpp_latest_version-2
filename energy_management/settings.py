@@ -25,9 +25,9 @@ SECRET_KEY = "django-insecure-$s(@2rqs%8k+y-q-w%cv2sz%d+r=edxj&x!&7g@q@0!yd29_^z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['x22217029-rachana.eba-pe9sxm8x.sa-east-1.elasticbeanstalk.com','54.94.28.77','3.253.239.218','127.0.0.1:8000','172.31.26.141','172.31.35.132','x22217029cpp-env2.eba-hemqevvf.sa-east-1.elasticbeanstalk.com','16587ee00eb34e81aa0fe948fe97ab2b.vfs.cloud9.eu-north-1.amazonaws.com','51.20.249.35','16.16.246.142','x22217029cpp-env.eba-gwxdfpri.eu-north-1.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['x22217029-rachana.eba-pe9sxm8x.sa-east-1.elasticbeanstalk.com','54.94.28.77','3.253.239.218','127.0.0.1:8000','172.31.26.141','172.31.35.132','x22217029cpp-env2.eba-hemqevvf.sa-east-1.elasticbeanstalk.com','16587ee00eb34e81aa0fe948fe97ab2b.vfs.cloud9.eu-north-1.amazonaws.com','51.20.249.35','16.16.246.142','x22217029cpp-env.eba-gwxdfpri.eu-north-1.elasticbeanstalk.com','x22217029cpplatest-env.eba-gwxdfpri.eu-north-1.elasticbeanstalk.com']
 
-CSRF_TRUSTED_ORIGINS = ['https://c7403b93921e47b194ab5e41acac01b6.vfs.cloud9.eu-west-1.amazonaws.com','https://3.249.208.143','https://3.252.138.102','https://3.253.155.8','https://3.250.149.11','https://3.253.239.218','https://x22217029-rachana.eba-pe9sxm8x.sa-east-1.elasticbeanstalk.com','http://127.0.0.1:8000/','http://172.31.26.141','http://172.31.35.132','http://51.20.249.35','http://16.16.246.142']
+CSRF_TRUSTED_ORIGINS = ['https://c7403b93921e47b194ab5e41acac01b6.vfs.cloud9.eu-west-1.amazonaws.com','https://3.249.208.143','https://3.252.138.102','https://3.253.155.8','https://3.250.149.11','https://3.253.239.218','https://x22217029-rachana.eba-pe9sxm8x.sa-east-1.elasticbeanstalk.com','http://127.0.0.1:8000/','http://172.31.26.141','http://172.31.35.132','http://51.20.249.35','http://16.16.246.142','http://x22217029cpplatest-env.eba-gwxdfpri.eu-north-1.elasticbeanstalk.com']
 
 
 
@@ -105,7 +105,7 @@ DATABASES = {
             'NAME': database_secret['dbname'],
             'USER': database_secret['username'],
             'PASSWORD': database_secret['your_password_key'],
-            'HOST' : 'x22217029-postgres-db-cpp.chwlezgyi7rm.eu-west-1.rds.amazonaws.com',
+            'HOST' : 'x22217029-postgres-db-cpp.ctawtprtjx6u.eu-north-1.rds.amazonaws.com',
             'PORT': '5432',
         }
     }

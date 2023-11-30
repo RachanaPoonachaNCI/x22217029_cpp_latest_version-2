@@ -9,7 +9,7 @@ def get_secret():
     secret_name = "x22217029-energy-tracker-postgres-secret"
     
     # Specify the AWS region where the secret is stored
-    region_name = "eu-west-1"
+    region_name = "eu-north-1"
 
     # Create a Secrets Manager client using the specified region
     session = boto3.session.Session()
