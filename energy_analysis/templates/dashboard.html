@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Grid Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .table-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50vh; /* 50% of the viewport height */
+        }
+
+        .grid-table {
+            display: grid;
+            margin-top: 20rem;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 1px;
+            /* border: 2px solid #0095a0; */
+            background-color: #f0f0f0;
+            width: 80%; /* 50% of the viewport width */
+            height: 90%;
+            max-width: 100%; /* Ensure it doesn't exceed the viewport width */
+        }
+
+        .header {
+            background-color: #0095a0;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .cell {
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #0095a0;
+            text-align: center;
+        }
+
+        .button-container {
+            margin: 2rem;
+            display: flex;
+            justify-content: space-between;
+            display: flex;
+            gap: 10px;
+        }
+
+        .button {
+            background-color: #0095a0;
+            color: #fff;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #007080;
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <a href="/energy/profile/" class="button" >Profile</a>
+        <a href="/energy/form/" class="button">Add New Data</a>
+        <button style="border: #f0f0f0;" onclick="clearCookies()" id="clear-cookies-btn" class="button">Logout</button>
+    </div>
+    <div class="table-container">
+        <div class="grid-table">
+            <div style="border: 1px solid #f0f0f0; background-color: #f0f0f0;" class="cell"></div>
+            <div class="header">Daily Average (Current Week)</div>
+            <div class="header">Daily Average</div>
+            <div class="header">Monthly Total</div>
+           
+            <div class="header">Total Energy (W)</div>
+            <div class="cell">{{ matrix.weeklyAvgEnergy }}</div>
+            <div class="cell">{{ matrix.dailyAvgEnergy }}</div>
+            <div class="cell">{{ matrix.monthlyTotalEnergy }}</div>
+           
+            <div class="header">Air Conditioner (W)</div>
+            <div class="cell">{{ matrix.weeklyAvgAc }}</div>
+            <div class="cell">{{ matrix.dailyAvgAc }}</div>
+            <div class="cell">{{ matrix.monthlyTotalAc }}</div>
+           
+            <div class="header">Cooking Gas (Kg)</div>
+            <div class="cell">{{ matrix.weeklyAvgGas }}</div>
+            <div class="cell">{{ matrix.dailyAvgGas }}</div>
+            <div class="cell">{{ matrix.monthlyTotalGas }}</div>
+        </div>
+    </div>
+    <script>
+        // Function to clear all cookies
+        function clearCookies() {
+          var cookies = document.cookie.split(";");
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i];
+            var eqPos = cookie.indexOf("=");
+            var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+          }
+          window.location.href = '/auth/logout/'
+        }
+      </script>
+</body>
+</html>
