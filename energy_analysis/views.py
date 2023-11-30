@@ -215,6 +215,7 @@ def profile(request):
                 "history": history,
                 "username": username,
                 "email": request.user,
+                "profile_pic": profile_pic_url,
             },
             status=201,
         )

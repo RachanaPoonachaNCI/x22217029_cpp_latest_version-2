@@ -3,9 +3,10 @@ import warnings
 
 warnings.simplefilter('ignore')
 s3 = boto3.client('s3')
-bucket_name = 'x22217029-energy-tracker-cpp'
-s3.create_bucket(Bucket=bucket_name,CreateBucketConfiguration={'LocationConstraint': 'eu-west-1'})
+bucket_name = 'x22217029-energy-tracker'
+s3.create_bucket(Bucket=bucket_name,CreateBucketConfiguration={'LocationConstraint': 'eu-north-1'})
 print(bucket_name)
+
 # Call S3 to list current buckets
 response = s3.list_buckets()
 

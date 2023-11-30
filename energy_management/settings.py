@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # Installed Apps
     "authentication.apps.AuthenticationConfig",
     "energy_analysis.apps.EnergyAnalysisConfig",
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -109,6 +110,21 @@ DATABASES = {
             'PORT': '5432',
         }
     }
+    
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "AWS_STORAGE_BUCKET_NAME": 'x22217029-energy-tracker',
+            "AWS_ACCESS_KEY_ID": 'AKIASDPQLUX544LOMJV7',
+            "AWS_SECRET_ACCESS_KEY": '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',
+            "AWS_S3_REGION_NAME": 'eu-north-1',
+            "AWS_S3_CUSTOM_DOMAIN": 'x22217029-energy-tracker.s3.amazonaws.com',
+        },
+    },
+}
+# settings.py
+
 #import dj_database_url
 ####
 #DATABASES = {"default": dj_database_url.config(default="postgres://default:O1Lkj8JzYBHP@ep-lingering-bird-03074576-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb")}
