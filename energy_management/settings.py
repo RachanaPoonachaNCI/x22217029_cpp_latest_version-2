@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,7 +29,9 @@ ALLOWED_HOSTS = ['x22217029-rachana.eba-pe9sxm8x.sa-east-1.elasticbeanstalk.com'
 
 CSRF_TRUSTED_ORIGINS = ['https://c7403b93921e47b194ab5e41acac01b6.vfs.cloud9.eu-west-1.amazonaws.com','https://3.249.208.143','https://3.252.138.102','https://3.253.155.8','https://3.250.149.11','https://3.253.239.218','https://x22217029-rachana.eba-pe9sxm8x.sa-east-1.elasticbeanstalk.com','http://127.0.0.1:8000/','http://172.31.26.141','http://172.31.35.132','http://51.20.249.35','http://16.16.246.142','http://x22217029cpplatest-env.eba-gwxdfpri.eu-north-1.elasticbeanstalk.com','http://x22217029cpp-env-4.eba-7mqmtqfh.eu-north-1.elasticbeanstalk.com/']
 
-
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Application definition
 
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     "authentication.apps.AuthenticationConfig",
     "energy_analysis.apps.EnergyAnalysisConfig",
     "storages",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -54,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "energy_management.urls"
@@ -152,7 +156,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+#STATIC_URL = "static/"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
