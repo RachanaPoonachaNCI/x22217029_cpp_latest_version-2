@@ -72,7 +72,7 @@ def signup_api(request):
             sqs_client = session.client('sqs')
             
             user_data = {
-                'username': 'email',
+                'username': email,
                 'timestamp': str(datetime.now())
             }
             # Convert user_data to JSON format
