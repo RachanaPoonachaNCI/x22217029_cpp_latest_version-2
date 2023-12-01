@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "authentication.apps.AuthenticationConfig",
     "energy_analysis.apps.EnergyAnalysisConfig",
-   # "storages",
+    "storages",
 ]
 
 MIDDLEWARE = [
