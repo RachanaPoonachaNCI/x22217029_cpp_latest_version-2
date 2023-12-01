@@ -2,7 +2,7 @@ from django.db import models
 from storages.backends.s3boto3 import S3Boto3Storage
 
 class S3MediaStorage(S3Boto3Storage):
-    location = 's3://x22217029-energy-tracker/'
+    location = 's3://x22217029-energy-tracker/profile_images/'
     
 # Create your models here.
 class consumer(models.Model):

@@ -9,7 +9,7 @@ from .models import airConditionerUnits, electricityUnits, gas as GasUnits, dail
 import math
 import boto3
 from botocore.exceptions import NoCredentialsError
-from energy_management.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_S3_REGION_NAME
+from energy_management.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
 
 # import boto3
 # iam_user = boto3.client('iam_user')
@@ -22,7 +22,6 @@ from energy_management.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY,
 # attach_policy('AmazonS3FullAccess', 'arn:aws:iam::aws:policy/AmazonS3FullAccess')
 
 # attach_policy.py
-
 
 # User Login view 
 @login_required(login_url="/auth/login/")
@@ -222,26 +221,23 @@ def profile(request):
         )
         user = authModels.consumer.objects.get(id=request.user)
         filename = user.pp  # Change this to the desired file name
-        bucket_name = 'bucket-name'
-      #  bucker_name = AWS_STORAGE_BUCKET_NAME
+        #bucket_name = 'bucket-name'
+        bucker_name = AWS_STORAGE_BUCKET_NAME
         url = ""
         try:
-                #Generate a presigned URL for the uploaded file
-                s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY, region_name=AWS_S3_REGION_NAME)
-                
-           #     file_name = user.get_filename()
-                
-                url = s3.generate_presigned_url(
+            s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY, region_name=AWS_S3_REGION_NAME)
+            url = s3.generate_presigned_url(
                 'get_object',
                 Params={'Bucket': bucket_name, 'Key': filename},
                 ExpiresIn=3600  # Set the expiration time for the URL in seconds (e.g., 1 hour)
                 )
-                    
-#print(f"Access URL for the uploaded file: {url}")
+            #client = boto3.client("s3")
+            #client.upload_file("/home/ec2-user/environment/cpp/source_code/energy-management-main/requirements.txt", "x22217029-energy-tracker", "x22217029")
+            #print(f"Access URL for the uploaded file: {url}")
         except Exception as e:
                 print(f"Error uploading file to S3: {e}")        
        # except:
-              #  print("Credentials not available")
+        #  print("Credentials not available")
         username = user.name if user.name != None else "change username"
         return render(
             request,
@@ -270,7 +266,7 @@ def profile(request):
            # file = request.FILES['upload']
             filename = 'your_desired_file_name.extension'  # Change this to the desired file name
             bucket_name = 'bucket_name'
-            s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY, region_name=AWS_S3_REGION_NAME)
+            s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
             try:
 # Upload the file to the specified bucket
                 s3.upload_fileobj(file, bucket_name, filename)
