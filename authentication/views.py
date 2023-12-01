@@ -5,6 +5,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from .models import airConditioner, consumer
 import boto3
+import json
+from datetime import datetime
 
 # Create your views here.
 @csrf_exempt
@@ -68,10 +70,17 @@ def signup_api(request):
             #Sending data to SQS service         
             session = boto3.session.Session()
             sqs_client = session.client('sqs')
+            
+            user_data = {
+                'username': 'email',
+                'timestamp': str(datetime.now())
+            }
+            # Convert user_data to JSON format
+            message_body = json.dumps(user_data)
             response = sqs_client.get_queue_url(QueueName='x22217029_cpp')
             queue_url = response['QueueUrl']
             print('\n==>message to send to the queue {} ...\n'.format("User has been registered successfully"))
-            response = sqs_client.send_message(QueueUrl=queue_url, MessageBody="User has been registered successfully")
+            response = sqs_client.send_message(QueueUrl=queue_url, MessageBody=message_body)
             return redirect("/auth/add_ac/")
         except Exception as e:
           #  print (e)
