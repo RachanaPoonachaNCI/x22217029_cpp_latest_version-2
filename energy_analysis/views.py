@@ -8,7 +8,7 @@ from authentication import models as authModels
 from .models import airConditionerUnits, electricityUnits, gas as GasUnits, dailyHistory
 import math
 import boto3
-from botocore.exceptions import NoCredentialsError
+#from botocore.exceptions import NoCredentialsError
 from energy_management.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
 
 # import boto3
