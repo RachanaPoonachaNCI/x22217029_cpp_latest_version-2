@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "authentication.apps.AuthenticationConfig",
     "energy_analysis.apps.EnergyAnalysisConfig",
-    "storages",
+   # "storages",
 ]
 
 MIDDLEWARE = [
@@ -117,7 +117,7 @@ AWS_S3_REGION_NAME = 'eu-north-1'
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_S3_VERITY = True
-DEFAULT = 
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' 
 
 
 
