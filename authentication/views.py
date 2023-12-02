@@ -71,7 +71,7 @@ def signup_api(request):
             new.save()
             login(request, user)
             #Sending data to SQS service         
-            session = boto3.session.Session()
+            session = boto3.session.Session(region_name='eu-north-1')
             sqs_client = session.client('sqs')
             
             user_data = {
