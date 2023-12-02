@@ -7,7 +7,7 @@ from .models import airConditioner, consumer
 import boto3
 import json
 from datetime import datetime
-import logger, traceback
+import logging, traceback
 
 # Create your views here.
 @csrf_exempt
