@@ -7,6 +7,7 @@ from .models import airConditioner, consumer
 import boto3
 import json
 from datetime import datetime
+import logger, traceback
 
 # Create your views here.
 @csrf_exempt
@@ -84,7 +85,9 @@ def signup_api(request):
             response = sqs_client.send_message(QueueUrl=queue_url, MessageBody=message_body)
             return redirect("/auth/add_ac/")
         except Exception as e:
-            print (e)
+          #  print (e)
+            logger.error(traceback.format_exc())
+                    
             return render(
                 request, "signup_page.html", context={"message": "Error"}, status=501
             )
