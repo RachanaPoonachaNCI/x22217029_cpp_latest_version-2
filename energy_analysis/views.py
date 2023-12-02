@@ -261,15 +261,13 @@ def profile(request):
             user.name = username
             user.save()
         elif reqType == "profile_pic":
-            
-            #uploading profile pic to S3
+            #uploading profile pictires to S3
             file = request.FILES.get("profile_pic")
-           # file = request.FILES['upload']
             filename = 'your_desired_file_name.extension'  # Change this to the desired file name
             bucket_name = AWS_STORAGE_BUCKET_NAME
             s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
             try:
-# Upload the file to the specified bucket
+            # Upload the file to the specified bucket
                 s3.upload_fileobj(file, bucket_name, filename)
             #except Exception as e:
             #    print(e)
