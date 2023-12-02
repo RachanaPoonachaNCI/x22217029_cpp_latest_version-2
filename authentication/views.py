@@ -75,7 +75,8 @@ def signup_api(request):
                 'username': email,
                 'timestamp': str(datetime.now())
             }
-            # # Convert user_data to JSON format
+            # # Convert user_data to JSON form
+            print("Going to send to sqs")
             message_body = json.dumps(user_data)
             response = sqs_client.get_queue_url(QueueName='x22217029_cpp')
             queue_url = response['QueueUrl']
@@ -83,7 +84,7 @@ def signup_api(request):
             response = sqs_client.send_message(QueueUrl=queue_url, MessageBody=message_body)
             return redirect("/auth/add_ac/")
         except Exception as e:
-          #  print (e)
+            print (e)
             return render(
                 request, "signup_page.html", context={"message": "Error"}, status=501
             )

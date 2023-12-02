@@ -222,10 +222,11 @@ def profile(request):
         user = authModels.consumer.objects.get(id=request.user)
         filename = user.pp  # Change this to the desired file name
         #bucket_name = 'bucket-name'
-        bucker_name = AWS_STORAGE_BUCKET_NAME
+        bucket_name = AWS_STORAGE_BUCKET_NAME
+        print(bucket_name)
         url = ""
         try:
-            s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY, region_name=AWS_S3_REGION_NAME)
+            s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
             url = s3.generate_presigned_url(
                 'get_object',
                 Params={'Bucket': bucket_name, 'Key': filename},
@@ -265,7 +266,7 @@ def profile(request):
             file = request.FILES.get("profile_pic")
            # file = request.FILES['upload']
             filename = 'your_desired_file_name.extension'  # Change this to the desired file name
-            bucket_name = 'bucket_name'
+            bucket_name = AWS_STORAGE_BUCKET_NAME
             s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
             try:
 # Upload the file to the specified bucket
