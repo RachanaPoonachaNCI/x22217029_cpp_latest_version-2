@@ -9,6 +9,8 @@ import json
 from datetime import datetime
 import logging, traceback
 
+#adding logger
+logger = logging.getLogger(__name__)
 # Create your views here.
 @csrf_exempt
 def login_api(request):
