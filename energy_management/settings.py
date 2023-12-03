@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ['x22217029-rachana.eba-pe9sxm8x.sa-east-1.elasticbeanstalk.com'
 
 CSRF_TRUSTED_ORIGINS = ['https://c7403b93921e47b194ab5e41acac01b6.vfs.cloud9.eu-west-1.amazonaws.com','https://3.249.208.143','https://3.252.138.102','http://51.20.222.174','https://3.253.155.8','https://3.250.149.11','https://3.253.239.218','https://x22217029-rachana.eba-pe9sxm8x.sa-east-1.elasticbeanstalk.com', 'http://172.31.26.141','http://172.31.35.132','http://51.20.249.35','http://16.16.246.142','http://x22217029cpplatest-env.eba-gwxdfpri.eu-north-1.elasticbeanstalk.com','http://x22217029cpp-env-4.eba-7mqmtqfh.eu-north-1.elasticbeanstalk.com/','http://127.0.0.1']
 
+APPEND_SLASH=False
+
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
