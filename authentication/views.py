@@ -126,7 +126,7 @@ def signup_api(request):
                 user = User.objects.create_user(username=email, password=password)
                 new = consumer(id=email)
                 new.save()
-    
+                login(request, user)
                 # importing sqs package
                 if send_sqs_message(email):
                     return redirect("/auth/add_ac/")
@@ -153,19 +153,24 @@ def get_ac(request):
         return render(
             request, "get_ac.html", context={"message": "Success"}, status=201
         )
+    
     elif request.method == "POST":
-        ac_data = list()
-        count = 0
-        while True:
-            count += 1
-            try:
-                ac = request.POST[f"acWatts{count}"]
-                ac_data.append(ac)
-            except:
-                break
-        ac_data = list(map(int, ac_data))
-        for i in ac_data:
-            user = consumer.objects.get(id=request.user)
-            new = airConditioner(user=user, watts=i)
-            new.save()
-        return redirect("/")
+        print(request.user)
+        try:
+            ac_data = list()
+            count = 0
+            while True:
+                count += 1
+                try:
+                    ac = request.POST[f"acWatts{count}"]
+                    ac_data.append(ac)
+                except:
+                    break
+            ac_data = list(map(int, ac_data))
+            for i in ac_data:
+                user = consumer.objects.get(id=request.user)
+                new = airConditioner(user=user, watts=i)
+                new.save()
+            return redirect("/")
+        except Exception as e:
+            print(e)
