@@ -8,22 +8,8 @@ from authentication import models as authModels
 from .models import airConditionerUnits, electricityUnits, gas as GasUnits, dailyHistory
 import math
 import boto3
-#from botocore.exceptions import NoCredentialsError
 from energy_management.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
 
-# import boto3
-# iam_user = boto3.client('iam_user')
-# def attach_policy(username, policy_arn):
-#     try:
-#         response = iam.attach_user_policy(UserName=username, PolicyArn=policy_arn)
-#         print(f"Policy {policy_arn} attached to user {username} successfully")
-#     except Exception as e:
-#         print(f"Error attaching policy {policy_arn} to user {username}: {str(e)}")
-# attach_policy('AmazonS3FullAccess', 'arn:aws:iam::aws:policy/AmazonS3FullAccess')
-
-# attach_policy.py
-
-# User Login view 
 @login_required(login_url="/auth/login/")
 def dashboard(request):
     if request.method == "GET":
@@ -220,8 +206,7 @@ def profile(request):
             )
         )
         user = authModels.consumer.objects.get(id=request.user)
-        filename = user.pp  # Change this to the desired file name
-        #bucket_name = 'bucket-name'
+        filename = user.pp  # Changing this to the desired file name
         bucket_name = AWS_STORAGE_BUCKET_NAME
         print(bucket_name)
         url = ""
@@ -230,11 +215,8 @@ def profile(request):
             url = s3.generate_presigned_url(
                 'get_object',
                 Params={'Bucket': bucket_name, 'Key': filename},
-                ExpiresIn=3600  # Set the expiration time for the URL in seconds (e.g., 1 hour)
+                ExpiresIn=3600  # Setting the expiration time for the URL in seconds (e.g., 1 hour)
                 )
-            #client = boto3.client("s3")
-            #client.upload_file("/home/ec2-user/environment/cpp/source_code/energy-management-main/requirements.txt", "x22217029-energy-tracker", "x22217029")
-            #print(f"Access URL for the uploaded file: {url}")
         except Exception as e:
                 print(f"Error uploading file to S3: {e}")        
        # except:
@@ -263,7 +245,7 @@ def profile(request):
         elif reqType == "profile_pic":
             #uploading profile pictires to S3
             file = request.FILES.get("profile_pic")
-            filename = 'your_desired_file_name.extension'  # Change this to the desired file name
+            filename = "any_file.extension"  # Change this to the desired file name
             bucket_name = AWS_STORAGE_BUCKET_NAME
             s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
             try:

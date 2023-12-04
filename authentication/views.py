@@ -10,9 +10,10 @@ from datetime import datetime
 import logging, traceback
 from sqs_library.sqs_package.sqs_function import send_sqs_message
 
-#adding logger to checjk exception
+# Adding logger to check exception
 logger = logging.getLogger(__name__)
-# Create your views here.
+
+# Creating views here.
 @csrf_exempt
 def login_api(request):
     if request.method == "GET":
@@ -40,7 +41,6 @@ def login_api(request):
             )
 
 
-@csrf_exempt
 # def signup_api(request):
 #     if request.method == "GET":
 #         return render(
@@ -94,6 +94,8 @@ def login_api(request):
 #             return render(
 #                 request, "signup_page.html", context={"message": "Error"}, status=501
 #             )
+
+@csrf_exempt
 def signup_api(request):
      if request.method == "GET":
          return render(
@@ -127,7 +129,8 @@ def signup_api(request):
                 new = consumer(id=email)
                 new.save()
                 login(request, user)
-                # importing sqs package
+                
+                # Importing sqs library package
                 if send_sqs_message(email):
                     return redirect("/auth/add_ac/")
                 else:

@@ -1,18 +1,16 @@
 import boto3
+from s3_credentials import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
 
-AWS_ACCESS_KEY_ID = 'your-access-key-id'
-AWS_SECRET_ACCESS_KEY = 'your-secret-access-key'
+# Setting IAM user name for storage
+IAM_USER_NAME = 's3'
 
-# Set your IAM user name
-IAM_USER_NAME = 'your-iam-user-name'
-
-# Create an IAM client
+# Creating an IAM client
 iam = boto3.client('iam', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
-# Attach the policy to the IAM user
+# Attaching the policy to the IAM user
 iam.attach_user_policy(
     UserName=IAM_USER_NAME,
-    PolicyArn='arn:aws:iam::aws:policy/AmazonS3FullAccess'  # Replace with the desired policy ARN
+    PolicyArn='arn:aws:iam::aws:policy/AmazonS3FullAccess' 
 )
 
-print(f"Policy attached to IAM user: {IAM_USER_NAME}")
+print(f"Policy has been attached to : {IAM_USER_NAME}")
