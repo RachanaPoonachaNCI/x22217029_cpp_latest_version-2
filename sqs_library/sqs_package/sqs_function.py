@@ -11,7 +11,7 @@ def send_sqs_message(email):
             'username': email,
             'timestamp': str(datetime.now())
         }
-        # Convert user_data to JSON form
+        # Converting user_data to JSON form
         message_body = json.dumps(user_data)
 
         print("Going to send to SQS")

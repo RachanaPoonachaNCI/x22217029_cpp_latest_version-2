@@ -2,7 +2,7 @@ import boto3
 import json
 
 def create_secret():
-    # Replace these values with your actual configurations
+    
     secret_name = 'x22217029-energy-tracker-postgres-secret'
 
     # Create an AWS Secrets Manager client

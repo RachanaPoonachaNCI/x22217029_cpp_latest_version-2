@@ -245,7 +245,7 @@ def profile(request):
         elif reqType == "profile_pic":
             #uploading profile pictires to S3
             file = request.FILES.get("profile_pic")
-            filename = "any_file.extension"  # Change this to the desired file name
+            filename = "my_profile_pic.extension"  # Change this to the desired file name
             bucket_name = AWS_STORAGE_BUCKET_NAME
             s3 = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
             try:
